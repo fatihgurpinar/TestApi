@@ -13,6 +13,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.Urls.Add("http://*:1000");
+
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 
