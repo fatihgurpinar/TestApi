@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  s_jenkins:
+    container_name: c_testapi
+    image: fatihgurpinar/testapi
+    ports:
+      - "1000:1000"
