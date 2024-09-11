@@ -7,12 +7,14 @@ COPY *.csproj .
 RUN dotnet restore
 
 COPY . ./
-RUN dotnet publish --no-restore -c Release -o out
+# Publish as a self-contained application for Alpine Linux (musl)
+RUN dotnet publish -c Release -r linux-musl-x64 --self-contained true -o out
 
-FROM mcr.microsoft.com/dotnet/runtime:8.0.8-alpine3.20-amd64
+FROM mcr.microsoft.com/dotnet/runtime-deps:8.0.8-alpine3.20-amd64
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["./Api"]
+
 
 
 
